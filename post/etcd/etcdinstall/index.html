@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ETCD 安装测试 - YY的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="YY" /><meta name="description" content="环境准备 ID IP 系统 etcd 名字 1 192.168.1.100 centos etcd0 2 192.168.1.101 ubuntu etcd1 3 192.168.1.102 centos etcd2 下载etcd 3.4.0 版本： 参考：etcd-3.4.0 将etcd/etcdctl 放入~/bin下，并加" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.101.0 with theme even" />
+
+
+<link rel="canonical" href="https://yy-up.github.io/post/etcd/etcdinstall/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="ETCD 安装测试" />
+<meta property="og:description" content="环境准备 ID IP 系统 etcd 名字 1 192.168.1.100 centos etcd0 2 192.168.1.101 ubuntu etcd1 3 192.168.1.102 centos etcd2 下载etcd 3.4.0 版本： 参考：etcd-3.4.0 将etcd/etcdctl 放入~/bin下，并加" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yy-up.github.io/post/etcd/etcdinstall/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-07-17T21:25:00+08:00" />
+<meta property="article:modified_time" content="2022-07-17T21:25:00+08:00" />
+
+<meta itemprop="name" content="ETCD 安装测试">
+<meta itemprop="description" content="环境准备 ID IP 系统 etcd 名字 1 192.168.1.100 centos etcd0 2 192.168.1.101 ubuntu etcd1 3 192.168.1.102 centos etcd2 下载etcd 3.4.0 版本： 参考：etcd-3.4.0 将etcd/etcdctl 放入~/bin下，并加"><meta itemprop="datePublished" content="2022-07-17T21:25:00+08:00" />
+<meta itemprop="dateModified" content="2022-07-17T21:25:00+08:00" />
+<meta itemprop="wordCount" content="1582">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ETCD 安装测试"/>
+<meta name="twitter:description" content="环境准备 ID IP 系统 etcd 名字 1 192.168.1.100 centos etcd0 2 192.168.1.101 ubuntu etcd1 3 192.168.1.102 centos etcd2 下载etcd 3.4.0 版本： 参考：etcd-3.4.0 将etcd/etcdctl 放入~/bin下，并加"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">YY的个人博客</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">YY的个人博客</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">ETCD 安装测试</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-07-17 </span>
+        
+          <span class="more-meta"> 约 1582 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#环境准备">环境准备</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="环境准备">环境准备</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th style="text-align:center">IP</th>
+<th style="text-align:center">系统</th>
+<th style="text-align:right">etcd 名字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align:center">192.168.1.100</td>
+<td style="text-align:center">centos</td>
+<td style="text-align:right">etcd0</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align:center">192.168.1.101</td>
+<td style="text-align:center">ubuntu</td>
+<td style="text-align:right">etcd1</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align:center">192.168.1.102</td>
+<td style="text-align:center">centos</td>
+<td style="text-align:right">etcd2</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<ol>
+<li>
+<p>下载etcd 3.4.0 版本：</p>
+<p>参考：<a href="https://github.com/etcd-io/etcd/releases/tag/v3.4.0">etcd-3.4.0</a></p>
+</li>
+<li>
+<p>将etcd/etcdctl 放入~/bin下，并加入PATH</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># etcd --version</span>
+</span></span><span class="line"><span class="cl"> etcd Version: 3.4.0
+</span></span><span class="line"><span class="cl"> Git SHA: 898bd1351
+</span></span><span class="line"><span class="cl"> Go Version: go1.12.9
+</span></span><span class="line"><span class="cl"> Go OS/Arch: linux/amd64
+</span></span><span class="line"><span class="cl"> <span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># etcdctl version</span>
+</span></span><span class="line"><span class="cl"> etcdctl version: 3.4.0
+</span></span><span class="line"><span class="cl"> API version: 3.4
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>采用Static方式构建集群</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p /data/etcd/data
+</span></span><span class="line"><span class="cl">mkdir -p /data/etcd/log
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /data/etcd/
+</span></span><span class="line"><span class="cl"><span class="c1">## 到192.168.1.100机器上执行</span>
+</span></span><span class="line"><span class="cl">cat &gt; etcd0setup.sh <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">etcd --name etcd0 --data-dir /data/etcd/data --advertise-client-urls http://192.168.1.100:2379,http://192.168.1.100:4001 --listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 --initial-advertise-peer-urls http://192.168.1.100:2380 --listen-peer-urls http://0.0.0.0:2380 --initial-cluster-token etcd-cluster --initial-cluster etcd0=http://192.168.1.100:2380,etcd1=http://192.168.1.101:2380,etcd2=http://192.168.1.102:2380 --initial-cluster-state new &gt; ./log/etcd.log 2&gt;&amp;1
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 到192.168.1.101机器上执行</span>
+</span></span><span class="line"><span class="cl">cat &gt; etcd1setup.sh <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">etcd --name etcd1 --data-dir /data/etcd/data --advertise-client-urls http://192.168.1.101:2379,http://192.168.1.101:4001 --listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 --initial-advertise-peer-urls http://192.168.1.101:2380 --listen-peer-urls http://0.0.0.0:2380 --initial-cluster-token etcd-cluster --initial-cluster etcd0=http://192.168.1.100:2380,etcd1=http://192.168.1.101:2380,etcd2=http://192.168.1.102:2380 --initial-cluster-state new &gt; ./log/etcd.log 2&gt;&amp;1
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 到192.168.1.102机器上执行</span>
+</span></span><span class="line"><span class="cl">etcd --name etcd2 --data-dir /data/etcd/data --advertise-client-urls http://192.168.1.102:2379,http://192.168.1.102:4001 --listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 --initial-advertise-peer-urls http://192.168.1.102:2380 --listen-peer-urls http://0.0.0.0:2380 --initial-cluster-token etcd-cluster --initial-cluster <span class="nv">etcd0</span><span class="o">=</span>http://192.168.1.100:2380,etcd1<span class="o">=</span>http://192.168.1.101:2380,etcd2<span class="o">=</span>http://192.168.1.102:2380 --initial-cluster-state new &gt; ./log/etcd.log 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">EOF   
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<p>常用配置说明：</p>
+<ul>
+<li>&ndash;name：方便理解的节点名称，默认为 default，在集群中应该保持唯一</li>
+<li>&ndash;data-dir：服务运行数据保存的路径，默认为 ${name}.etcd</li>
+<li>&ndash;advertise-client-urls：对外公告的该节点客户端监听地址，这个值会告诉集群中其他节点</li>
+<li>&ndash;listen-client-urls：对外提供服务的地址：比如 http://ip:2379,http://127.0.0.1:2379，客户端会连接到这里和etcd交互</li>
+<li>&ndash;wal-dir 指定节点的was文件存储目录，若指定了该参数，wal文件会和其他数据文件分开存储</li>
+<li>&ndash;initial-advertise-peer-urls：该节点同伴监听地址，这个值会告诉集群中其他节点</li>
+<li>&ndash;listen-peer-urls：和同伴通信的地址，比如 http://ip:2380，如果有多个，使用逗号分隔。需要所有节点都能够访问，所以不要使用 localhost</li>
+<li>&ndash;initial-cluster-token：创建集群的token，这个值每个集群保持唯一。这样的话，如果你要重新创建集群，即使配置和之前一样，也会再次生成新的集群和节点 uuid；否则会导致多个集群之间的冲突，造成未知的错误</li>
+<li>&ndash;initial-cluster：集群中所有节点的信息，格式为 node1=http://ip1:2380,node2=http://ip2:2380,…。需要注意的是，这里的 node1 是节点的&ndash;name指定的名字；后面的ip1:2380 是&ndash;initial-advertise-peer-urls 指定的值</li>
+<li>&ndash;initial-cluster-state：新建集群的时候，这个值为 new；假如已经存在的集群，这个值为existing</li>
+<li>&ndash;snapshot-count：指定有多少事务（transaction）被提交时，触发截取快照保存到磁盘</li>
+<li>&ndash;heartbeat-interval：leader 多久发送一次心跳到 followers。默认值是 100ms</li>
+</ul>
+<p>所有以&ndash;init开头的配置都是在第一次启动etcd集群的时候才会用到，后续节点的重启会被忽略，如-initial-cluseter参数。所以当成功初始化了一个etcd集群以后，就不再需要这个参数或环境变量了。如果服务已经运行过就要把修改 &ndash;initial-cluster-state 为<font color=red>existing</font></p>
+</li>
+<li>
+<p>分别在三台机器上启动，本次实验只启动了两台</p>
+</li>
+<li>
+<p>常用命令以及截图信息：</p>
+<ol>
+<li>
+<p>member list（只启动一个的时候，会报错，应该是etcd集群未成功）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl member list -w table
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/etcd/2022-04-04_19-50-27.png" alt="memberlist"></p>
+<p>上面client address脚本里设置的多个。</p>
+<p>当关闭2个时，也就是只留一个，会发现出错：
+<img src="/etcd/2022-04-04_20-03-54.png" alt="healtherror"></p>
+</li>
+<li>
+<p>查询所有的key以及值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl get --from-key <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#只看key</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl get --from-key <span class="s2">&#34;&#34;</span> --keys-only
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/etcd/2022-04-04_20-27-54.png" alt="allkey"></p>
+</li>
+<li>
+<p>查询以/api为前缀的key以及值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl get --prefix /api
+</span></span><span class="line"><span class="cl"><span class="c1">#只看key(k8s)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl get --prefix / --keys-only
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/etcd/2022-04-04_20-28-54.png" alt="prekey"></p>
+</li>
+<li>
+<p>监听,服务发现:watch</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#监听一个还未创建的key</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl watch /api/v3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/etcd/2022-04-04_20-31-53.png" alt="watchkey"></p>
+</li>
+<li>
+<p>集群状态status/health</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#看本机</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl endpoint status -w table
+</span></span><span class="line"><span class="cl"><span class="c1">#看集群</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints 192.168.1.101:2379,192.168.1.100:2379,192.168.1.102:2379 endpoint status -w table
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/etcd/2022-04-04_20-45-22.png" alt="clusterstatus"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#看本机</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl endpoint health -w table
+</span></span><span class="line"><span class="cl"><span class="c1">#看集群</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints 192.168.1.101:2379,192.168.1.100:2379,192.168.1.102:2379 endpoint health -w table
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/etcd/2022-04-04_20-47-31.png" alt="clusterhealth"></p>
+</li>
+<li></li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">YY</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-07-17
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/os/centos/">
+            <span class="next-text nav-default">Centos minimal安装配置</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="yy-up/yy-up.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="njitdkj082yy@sina.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://yy-up.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>YY</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
