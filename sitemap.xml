@@ -2,50 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://yy-up.github.io/post/etcd/etcdinstall/</loc>
-    <lastmod>2022-07-17T21:25:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://yy-up.github.io/post/</loc>
-    <lastmod>2022-07-17T21:25:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://yy-up.github.io/</loc>
-    <lastmod>2022-07-17T21:25:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://yy-up.github.io/post/os/centos/</loc>
-    <lastmod>2022-07-17T21:23:49+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://yy-up.github.io/post/os/ubuntu/</loc>
-    <lastmod>2022-07-17T21:23:49+08:00</lastmod>
+    <loc>https://yy-up.github.io/about/</loc>
+    <lastmod>2022-07-17T20:30:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://yy-up.github.io/post/k8s/k8s_install/</loc>
-    <lastmod>2022-07-17T21:21:05+08:00</lastmod>
+    <lastmod>2022-05-23T21:21:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://yy-up.github.io/about/</loc>
-    <lastmod>2022-07-17T20:30:01+08:00</lastmod>
+    <loc>https://yy-up.github.io/post/</loc>
+    <lastmod>2022-05-23T21:21:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://yy-up.github.io/</loc>
+    <lastmod>2022-05-23T21:21:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://yy-up.github.io/post/etcd/etcdinstall/</loc>
+    <lastmod>2022-04-05T21:25:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://yy-up.github.io/post/os/ubuntu/</loc>
+    <lastmod>2022-04-04T21:23:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://yy-up.github.io/post/os/centos/</loc>
+    <lastmod>2022-03-20T20:23:49+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
