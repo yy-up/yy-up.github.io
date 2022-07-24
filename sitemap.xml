@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yy-up.github.io/post/os/nfs/</loc>
+    <lastmod>2022-07-24T21:05:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://yy-up.github.io/post/</loc>
+    <lastmod>2022-07-24T21:05:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://yy-up.github.io/</loc>
+    <lastmod>2022-07-24T21:05:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://yy-up.github.io/about/</loc>
     <lastmod>2022-07-17T20:30:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -10,20 +31,6 @@
   
   <url>
     <loc>https://yy-up.github.io/post/k8s/k8s_install/</loc>
-    <lastmod>2022-05-23T21:21:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://yy-up.github.io/post/</loc>
-    <lastmod>2022-05-23T21:21:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://yy-up.github.io/</loc>
     <lastmod>2022-05-23T21:21:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
