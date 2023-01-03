@@ -2,21 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://yy-up.github.io/post/os/nfs/</loc>
-    <lastmod>2022-07-24T21:05:02+08:00</lastmod>
+    <loc>https://yy-up.github.io/post/</loc>
+    <lastmod>2023-01-03T14:52:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://yy-up.github.io/post/</loc>
-    <lastmod>2022-07-24T21:05:02+08:00</lastmod>
+    <loc>https://yy-up.github.io/post/redis/redis/</loc>
+    <lastmod>2023-01-03T14:52:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://yy-up.github.io/</loc>
+    <lastmod>2023-01-03T14:52:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://yy-up.github.io/post/os/nfs/</loc>
     <lastmod>2022-07-24T21:05:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
