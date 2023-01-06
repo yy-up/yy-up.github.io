@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Redis">
 <meta itemprop="description" content="用redis-cli进行数据操作报错(error) MOVED 的解决方法 错误信息 [root@redis-test]# docker exec -it redis-nodes01 /bin/bash root@redis-test:/data/# redis-cli 127.0.0.1:6379&gt; get * (error) MOVED 1320 192.168.1.101:6379 解决办法: 用 -c 参数连接redis集群节点"><meta itemprop="datePublished" content="2023-01-03T14:52:32+08:00" />
 <meta itemprop="dateModified" content="2023-01-03T14:52:32+08:00" />
-<meta itemprop="wordCount" content="75">
+<meta itemprop="wordCount" content="779">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Redis"/>
 <meta name="twitter:description" content="用redis-cli进行数据操作报错(error) MOVED 的解决方法 错误信息 [root@redis-test]# docker exec -it redis-nodes01 /bin/bash root@redis-test:/data/# redis-cli 127.0.0.1:6379&gt; get * (error) MOVED 1320 192.168.1.101:6379 解决办法: 用 -c 参数连接redis集群节点"/>
@@ -134,8 +134,8 @@
       <div class="post-meta">
         <span class="post-time"> 2023-01-03 </span>
         
-          <span class="more-meta"> 约 75 字 </span>
-          <span class="more-meta"> 预计阅读 1 分钟 </span>
+          <span class="more-meta"> 约 779 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
@@ -157,6 +157,168 @@
 <p>(error) MOVED 1320 192.168.1.101:6379</p>
 <p><code>解决办法: 用 -c 参数连接redis集群节点</code></p>
 <p>root@redis-test:/data/# redis-cli -c -p 6379</p>
+</li>
+<li>
+<p>redis是NoSQL数据库，NoSQL与SQL的区别如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SQL</th>
+<th>NoSQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据结构</td>
+<td>结构化(structured)，有约束</td>
+<td>非结构化</td>
+</tr>
+<tr>
+<td>数据关联</td>
+<td>关联的(Relational)，比如外键</td>
+<td>无关联的</td>
+</tr>
+<tr>
+<td>查询方式</td>
+<td>SQL查询</td>
+<td>非SQL</td>
+</tr>
+<tr>
+<td>事务特性</td>
+<td>ACID</td>
+<td>BASE(也就是一般满足)</td>
+</tr>
+<tr>
+<td>存储方式</td>
+<td>磁盘</td>
+<td>内存</td>
+</tr>
+<tr>
+<td>扩展性</td>
+<td>垂直</td>
+<td>水平</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>1）数据结构固定</td>
+<td>1）数据结构不固定</td>
+</tr>
+<tr>
+<td></td>
+<td>2) 相关业务对数据安全性一致性要求较高</td>
+<td>2）对一致性，安全性要求不高</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>redis特征：<font color=red>单线程的</font>，所以命令是串行执行的，每个命令具有原子性。虽然是单线程，但是由于基于内存，IO多路复用特性，也能低延迟，速度快。</p>
+</li>
+<li>
+<p>redis服务端安装</p>
+<p>#[root@elk-test ~]# yum install -y gcc tcl</p>
+<p>#[root@elk-test redis]# cd /usr/local/src/</p>
+<p>#[root@elk-test redis]# curl -L -O <a href="http://download.redis.io/releases/redis-6.2.4.tar.gz">http://download.redis.io/releases/redis-6.2.4.tar.gz</a></p>
+<p>#[root@elk-test src]# tar -zxvf * &amp;&amp; cd redis-6.2.4/ &amp;&amp; make &amp;&amp; make install</p>
+<p>检查/usr/local/bin目录：</p>
+<p><img src="/Redis/2023-01-04_10-43-46.png" alt="redis"></p>
+<p><font color=red>前台</font>启动redis：
+#[root@elk-test ~]# redis-server</p>
+<p><img src="/Redis/2023-01-04_10-47-53.png" alt="startup"></p>
+<p><font color=red>后台</font>运行，修改redis.conf
+<img src="/Redis/2023-01-04_11-01-57.png" alt="config1"></p>
+<p><img src="/Redis/2023-01-04_11-02-53.png" alt="config2"></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bind</td>
+<td>改成0.0.0.0，可以监听所有ip地址</td>
+</tr>
+<tr>
+<td>daemonize</td>
+<td>yes,后台运行</td>
+</tr>
+<tr>
+<td>logfile</td>
+<td>只写文件的名字，对应的目录在dir的设置</td>
+</tr>
+<tr>
+<td>databases</td>
+<td>默认16个，可以修改数量</td>
+</tr>
+</tbody>
+</table>
+<p>#[root@elk-test redis-6.2.4]# cd /usr/local/src/redis-6.2.4 &amp;&amp; redis-server redis.conf</p>
+<p>#[root@elk-test redis-6.2.4]# ps -ef |grep redis</p>
+<p>root     24846 19380  0 10:47 pts/0    00:00:01 redis-server *:6379</p>
+<p><font color=red>开机自启动</font>:</p>
+<p>[root@elk-test redis-6.2.4]# vi /etc/systemd/system/redis.service</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>Unit<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Description</span><span class="o">=</span>redis-server
+</span></span><span class="line"><span class="cl"><span class="nv">After</span><span class="o">=</span>network.target
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Service<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Type</span><span class="o">=</span>forking
+</span></span><span class="line"><span class="cl"><span class="nv">ExecStart</span><span class="o">=</span>/usr/local/bin/redis-server /usr/local/src/redis-6.2.4/redis.conf
+</span></span><span class="line"><span class="cl"><span class="nv">PrivateTmp</span><span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Install<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>[root@elk-test redis-6.2.4]# systemctl daemon-reload &amp;&amp; systemctl enable redis &amp;&amp; systemctl restart redis</p>
+</li>
+<li>
+<p>redis-cli客户端连接：</p>
+<p><code>redis-cli -h xx.xx.xx.xx -p 6379 -a &lt;passwd&gt;</code></p>
+<p><code>redis-cli -h xx.xx.xx.xx -p 6379</code> AUTH xx xx</p>
+<p><img src="/Redis/2023-01-04_11-40-50.png" alt="ping"></p>
+</li>
+<li>
+<p>常用命令</p>
+<ul>
+<li><code>help @list</code>
+<img src="/Redis/2023-01-04_13-45-10.png" alt="list"></li>
+<li><code>help @generic</code></li>
+<li><code>keys *</code> :不建议在生产环境下使用，数据量达到千万级别，模糊查询，耗时长。</li>
+<li><code>expire onekey 10</code></li>
+<li><code>ttl onekey</code></li>
+<li><code>setnx key value</code> : key存在则不添加，不存在添加</li>
+<li><code>hgetall H:user:1</code>: 获取hash类型的key的所有field和value</li>
+</ul>
+</li>
+<li>
+<p>最佳实践</p>
+<ul>
+<li>key的名字最好层级，比如：<code>项目名:业务名:类型:id</code></li>
+</ul>
+</li>
+<li>
+<p>hash类型
+<img src="/Redis/2023-01-04_14-42-09.png" alt="hash"></p>
+<p><font color=blue>hash类型，相比string类型的好处，对于上面的数据，string类型用json字符串存储，但是修改其中字段麻烦，hash可以。</font></p>
 </li>
 <li></li>
 </ol>
