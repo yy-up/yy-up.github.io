@@ -6,7 +6,34 @@
     <description>Recent content on YY的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 03 Jan 2023 14:52:32 +0800</lastBuildDate><atom:link href="https://yy-up.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 07 Jan 2023 10:08:51 +0800</lastBuildDate><atom:link href="https://yy-up.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Giwabot</title>
+      <link>https://yy-up.github.io/post/giwabot/giwabot/</link>
+      <pubDate>Sat, 07 Jan 2023 10:08:51 +0800</pubDate>
+      
+      <guid>https://yy-up.github.io/post/giwabot/giwabot/</guid>
+      <description>创建开机自动启动giwabot 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 giwabot@raspberrypi:~/Documents/solar-cleanbot-vision $ cd /home/giwabot/Documents/solar-cleanbot-vision giwabot@raspberrypi:~/Documents/solar-cleanbot-vision $ vi onbootstartup.sh #!/bin/bash python -O hough.py 1&amp;gt;/dev/null 2&amp;gt;&amp;amp;1 &amp;amp; giwabot@raspberrypi:/usr/lib/systemd/system $ cd /usr/lib/systemd/system/ giwabot@raspberrypi:/usr/lib/systemd/system $ sudo vi giwabot.service [Unit] Description=Giwabot [Service] Type=forking User=giwabot Group=giwabot ExecStart=/home/giwabot/Documents/solar-cleanbot-vision/onbootstartup.sh [Install] WantedBy=multi-user.target giwabot@raspberrypi:/usr/lib/systemd/system</description>
+    </item>
+    
+    <item>
+      <title>Cmd</title>
+      <link>https://yy-up.github.io/post/windows/cmd/</link>
+      <pubDate>Sat, 07 Jan 2023 09:46:29 +0800</pubDate>
+      
+      <guid>https://yy-up.github.io/post/windows/cmd/</guid>
+      <description>循环扫描在用的ip for /l %i in (1,1,254) do ping -n 1 -w 60 192.168.8.%i | find &amp;quot;回复&amp;quot;</description>
+    </item>
+    
+    <item>
+      <title>Pythonredis</title>
+      <link>https://yy-up.github.io/post/redis/pythonredis/</link>
+      <pubDate>Fri, 06 Jan 2023 16:05:11 +0800</pubDate>
+      
+      <guid>https://yy-up.github.io/post/redis/pythonredis/</guid>
+      <description>python redis包 redis的包的github地址: https://github.com/WoLpH/redis-py pip3 install redis==4.4.0 -i https://pypi.douban.com/simple/ 连接方式 StrictRedis方式，指定参数host,port,db 1 2 3 4 5 import</description>
+    </item>
+    
     <item>
       <title>Redis</title>
       <link>https://yy-up.github.io/post/redis/redis/</link>

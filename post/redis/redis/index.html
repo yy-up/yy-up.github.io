@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Redis">
 <meta itemprop="description" content="用redis-cli进行数据操作报错(error) MOVED 的解决方法 错误信息 [root@redis-test]# docker exec -it redis-nodes01 /bin/bash root@redis-test:/data/# redis-cli 127.0.0.1:6379&gt; get * (error) MOVED 1320 192.168.1.101:6379 解决办法: 用 -c 参数连接redis集群节点"><meta itemprop="datePublished" content="2023-01-03T14:52:32+08:00" />
 <meta itemprop="dateModified" content="2023-01-03T14:52:32+08:00" />
-<meta itemprop="wordCount" content="779">
+<meta itemprop="wordCount" content="833">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Redis"/>
 <meta name="twitter:description" content="用redis-cli进行数据操作报错(error) MOVED 的解决方法 错误信息 [root@redis-test]# docker exec -it redis-nodes01 /bin/bash root@redis-test:/data/# redis-cli 127.0.0.1:6379&gt; get * (error) MOVED 1320 192.168.1.101:6379 解决办法: 用 -c 参数连接redis集群节点"/>
@@ -134,7 +134,7 @@
       <div class="post-meta">
         <span class="post-time"> 2023-01-03 </span>
         
-          <span class="more-meta"> 约 779 字 </span>
+          <span class="more-meta"> 约 833 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -320,7 +320,15 @@
 <img src="/Redis/2023-01-04_14-42-09.png" alt="hash"></p>
 <p><font color=blue>hash类型，相比string类型的好处，对于上面的数据，string类型用json字符串存储，但是修改其中字段麻烦，hash可以。</font></p>
 </li>
-<li></li>
+<li>
+<p>查看主从信息：<code>redis-cli -h 192.168.56.101 info Replication</code> : 从节点不能写，写入会报错
+<img src="/Redis/2023-01-06_17-21-31.png" alt="replication"></p>
+</li>
+<li>
+<p>查看集群信息: <code>redis-cli -h 192.168.56.101 cluster info</code></p>
+<p>不是集群，会报错:
+<img src="/Redis/2023-01-06_17-30-30.png" alt="clusterinfo"></p>
+</li>
 </ol>
 
     </div>
@@ -343,7 +351,11 @@
 <footer class="post-footer">
       
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/redis/pythonredis/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Pythonredis</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/os/nfs/">
             <span class="next-text nav-default">nfs server配置</span>
             <span class="next-text nav-mobile">下一篇</span>
