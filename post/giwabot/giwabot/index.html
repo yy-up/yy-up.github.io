@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Giwabot">
 <meta itemprop="description" content="创建开机自动启动giwabot 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 giwabot@raspberrypi:~/Documents/solar-cleanbot-vision $ cd /home/giwabot/Documents/solar-cleanbot-vision giwabot@raspberrypi:~/Documents/solar-cleanbot-vision $ vi onbootstartup.sh #!/bin/bash python -O hough.py 1&gt;/dev/null 2&gt;&amp;1 &amp; giwabot@raspberrypi:/usr/lib/systemd/system $ cd /usr/lib/systemd/system/ giwabot@raspberrypi:/usr/lib/systemd/system $ sudo vi giwabot.service [Unit] Description=Giwabot [Service] Type=forking User=giwabot Group=giwabot ExecStart=/home/giwabot/Documents/solar-cleanbot-vision/onbootstartup.sh [Install] WantedBy=multi-user.target giwabot@raspberrypi:/usr/lib/systemd/system"><meta itemprop="datePublished" content="2023-01-07T10:08:51+08:00" />
 <meta itemprop="dateModified" content="2023-01-07T10:08:51+08:00" />
-<meta itemprop="wordCount" content="127">
+<meta itemprop="wordCount" content="387">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Giwabot"/>
 <meta name="twitter:description" content="创建开机自动启动giwabot 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 giwabot@raspberrypi:~/Documents/solar-cleanbot-vision $ cd /home/giwabot/Documents/solar-cleanbot-vision giwabot@raspberrypi:~/Documents/solar-cleanbot-vision $ vi onbootstartup.sh #!/bin/bash python -O hough.py 1&gt;/dev/null 2&gt;&amp;1 &amp; giwabot@raspberrypi:/usr/lib/systemd/system $ cd /usr/lib/systemd/system/ giwabot@raspberrypi:/usr/lib/systemd/system $ sudo vi giwabot.service [Unit] Description=Giwabot [Service] Type=forking User=giwabot Group=giwabot ExecStart=/home/giwabot/Documents/solar-cleanbot-vision/onbootstartup.sh [Install] WantedBy=multi-user.target giwabot@raspberrypi:/usr/lib/systemd/system"/>
@@ -134,7 +134,7 @@
       <div class="post-meta">
         <span class="post-time"> 2023-01-07 </span>
         
-          <span class="more-meta"> 约 127 字 </span>
+          <span class="more-meta"> 约 387 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -148,7 +148,8 @@
 </div>
     <div class="post-content">
       <ol>
-<li>创建开机自动启动giwabot
+<li>
+<p>创建开机自动启动giwabot</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -198,7 +199,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div></li>
-<li>后续常用命令
+<li>
+<p>后续常用命令</p>
 <ol>
 <li>开机自动运行后，关闭服务
 <code>sudo systemctl stop giwabot</code></li>
@@ -208,6 +210,27 @@
 <code>sudo systemctl start/restart giwabot</code></li>
 </ol>
 </li>
+<li>
+<p>logging模块的使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"> <span class="n">giwabot_log</span> <span class="o">=</span> <span class="n">HandleConfLog</span><span class="p">()</span><span class="o">.</span><span class="n">get_log</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"> <span class="n">giwabot_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;我是config_info级别</span><span class="si">%d%d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"> <span class="n">giwabot_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;我是config_debug级别&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="n">giwabot_log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;我是config_warning级别&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="n">giwabot_log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;我是config_error级别</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="n">giwabot_log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;我是config_critical级别&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
 </ol>
 
     </div>
@@ -230,7 +253,11 @@
 <footer class="post-footer">
       
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/giwabot/hough/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Hough</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/windows/cmd/">
             <span class="next-text nav-default">Cmd</span>
             <span class="next-text nav-mobile">下一篇</span>

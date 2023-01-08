@@ -2,21 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://yy-up.github.io/post/giwabot/giwabot/</loc>
-    <lastmod>2023-01-07T10:08:51+08:00</lastmod>
+    <loc>https://yy-up.github.io/post/giwabot/hough/</loc>
+    <lastmod>2023-01-08T10:36:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://yy-up.github.io/post/</loc>
-    <lastmod>2023-01-07T10:08:51+08:00</lastmod>
+    <lastmod>2023-01-08T10:36:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://yy-up.github.io/</loc>
+    <lastmod>2023-01-08T10:36:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://yy-up.github.io/post/giwabot/giwabot/</loc>
     <lastmod>2023-01-07T10:08:51+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
