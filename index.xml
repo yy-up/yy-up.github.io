@@ -6,7 +6,25 @@
     <description>Recent content on YY的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 08 Jan 2023 10:36:00 +0800</lastBuildDate><atom:link href="https://yy-up.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 29 May 2023 14:15:21 +0800</lastBuildDate><atom:link href="https://yy-up.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blog使用步骤记录</title>
+      <link>https://yy-up.github.io/post/blog/blog/</link>
+      <pubDate>Mon, 29 May 2023 14:15:21 +0800</pubDate>
+      
+      <guid>https://yy-up.github.io/post/blog/blog/</guid>
+      <description>前置条件：当前所在的目录为：/drives/d/05.hugo/k8sdoc 创建md文档 1 ../hugo_extended_0.104.0/hugo.exe new post/blog/blog.md 本地查看效果 1 ../hugo_extended_0.104.0/hugo.exe server -t even --buildDrafts 本地编译，生成的文件</description>
+    </item>
+    
+    <item>
+      <title>Prometheus</title>
+      <link>https://yy-up.github.io/post/prometheus/prometheus/</link>
+      <pubDate>Tue, 10 Jan 2023 15:16:33 +0800</pubDate>
+      
+      <guid>https://yy-up.github.io/post/prometheus/prometheus/</guid>
+      <description>prometheus 热启动：需要加上 &amp;quot;&amp;ndash;web.enable-lifecycle&amp;quot; 参数 1 curl http://ip:9090/-/reload 加上**&amp;quot;&amp;ndash;web.enable-lifecycle&amp;quot;**参数重新启动后成功：</description>
+    </item>
+    
     <item>
       <title>Hough</title>
       <link>https://yy-up.github.io/post/giwabot/hough/</link>

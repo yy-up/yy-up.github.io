@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Redis">
 <meta itemprop="description" content="用redis-cli进行数据操作报错(error) MOVED 的解决方法 错误信息 [root@redis-test]# docker exec -it redis-nodes01 /bin/bash root@redis-test:/data/# redis-cli 127.0.0.1:6379&gt; get * (error) MOVED 1320 192.168.1.101:6379 解决办法: 用 -c 参数连接redis集群节点"><meta itemprop="datePublished" content="2023-01-03T14:52:32+08:00" />
 <meta itemprop="dateModified" content="2023-01-03T14:52:32+08:00" />
-<meta itemprop="wordCount" content="833">
+<meta itemprop="wordCount" content="883">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Redis"/>
 <meta name="twitter:description" content="用redis-cli进行数据操作报错(error) MOVED 的解决方法 错误信息 [root@redis-test]# docker exec -it redis-nodes01 /bin/bash root@redis-test:/data/# redis-cli 127.0.0.1:6379&gt; get * (error) MOVED 1320 192.168.1.101:6379 解决办法: 用 -c 参数连接redis集群节点"/>
@@ -134,7 +134,7 @@
       <div class="post-meta">
         <span class="post-time"> 2023-01-03 </span>
         
-          <span class="more-meta"> 约 833 字 </span>
+          <span class="more-meta"> 约 883 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -329,6 +329,19 @@
 <p>不是集群，会报错:
 <img src="/Redis/2023-01-06_17-30-30.png" alt="clusterinfo"></p>
 </li>
+<li>
+<p>设置redis集群密码，并重启(example)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ansible -i hosts redis -m shell -a <span class="s1">&#39;sed -i &#34;s;# requirepass foobared;requirepass 123456;g&#34; /data01/redis/redis.conf&#39;</span>
+</span></span><span class="line"><span class="cl">ansible -i hosts redis -m shell -a <span class="s1">&#39;docker restart redis-node01&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
 </ol>
 
     </div>

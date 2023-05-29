@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Hough - YY的个人博客</title>
+  <title>Prometheus - YY的个人博客</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="YY" /><meta name="description" content="三个数值，了解霍夫变换返回值的意义 如果线在原点下方通过，它将有一个正 rho 和一个小于 180 的角度。如果它在原点上方，而不是采用大于 180 的角度，该角度小" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="YY" /><meta name="description" content="prometheus 热启动：需要加上 &amp;quot;&amp;ndash;web.enable-lifecycle&amp;quot; 参数 1 curl http://ip:9090/-/reload 加上**&amp;quot;&amp;ndash;web.enable-lifecycle&amp;quot;**参数重新启动后成功：" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.104.0 with theme even" />
 
 
-<link rel="canonical" href="https://yy-up.github.io/post/giwabot/hough/" />
+<link rel="canonical" href="https://yy-up.github.io/post/prometheus/prometheus/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,20 +39,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Hough" />
-<meta property="og:description" content="三个数值，了解霍夫变换返回值的意义 如果线在原点下方通过，它将有一个正 rho 和一个小于 180 的角度。如果它在原点上方，而不是采用大于 180 的角度，该角度小" />
+<meta property="og:title" content="Prometheus" />
+<meta property="og:description" content="prometheus 热启动：需要加上 &quot;&ndash;web.enable-lifecycle&quot; 参数 1 curl http://ip:9090/-/reload 加上**&quot;&ndash;web.enable-lifecycle&quot;**参数重新启动后成功：" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://yy-up.github.io/post/giwabot/hough/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-01-08T10:36:00+08:00" />
-<meta property="article:modified_time" content="2023-01-08T10:36:00+08:00" />
+<meta property="og:url" content="https://yy-up.github.io/post/prometheus/prometheus/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-01-10T15:16:33+08:00" />
+<meta property="article:modified_time" content="2023-01-10T15:16:33+08:00" />
 
-<meta itemprop="name" content="Hough">
-<meta itemprop="description" content="三个数值，了解霍夫变换返回值的意义 如果线在原点下方通过，它将有一个正 rho 和一个小于 180 的角度。如果它在原点上方，而不是采用大于 180 的角度，该角度小"><meta itemprop="datePublished" content="2023-01-08T10:36:00+08:00" />
-<meta itemprop="dateModified" content="2023-01-08T10:36:00+08:00" />
-<meta itemprop="wordCount" content="114">
+<meta itemprop="name" content="Prometheus">
+<meta itemprop="description" content="prometheus 热启动：需要加上 &quot;&ndash;web.enable-lifecycle&quot; 参数 1 curl http://ip:9090/-/reload 加上**&quot;&ndash;web.enable-lifecycle&quot;**参数重新启动后成功："><meta itemprop="datePublished" content="2023-01-10T15:16:33+08:00" />
+<meta itemprop="dateModified" content="2023-01-10T15:16:33+08:00" />
+<meta itemprop="wordCount" content="361">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Hough"/>
-<meta name="twitter:description" content="三个数值，了解霍夫变换返回值的意义 如果线在原点下方通过，它将有一个正 rho 和一个小于 180 的角度。如果它在原点上方，而不是采用大于 180 的角度，该角度小"/>
+<meta name="twitter:title" content="Prometheus"/>
+<meta name="twitter:description" content="prometheus 热启动：需要加上 &quot;&ndash;web.enable-lifecycle&quot; 参数 1 curl http://ip:9090/-/reload 加上**&quot;&ndash;web.enable-lifecycle&quot;**参数重新启动后成功："/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -129,12 +129,12 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Hough</h1>
+      <h1 class="post-title">Prometheus</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2023-01-08 </span>
+        <span class="post-time"> 2023-01-10 </span>
         
-          <span class="more-meta"> 约 114 字 </span>
+          <span class="more-meta"> 约 361 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -149,35 +149,64 @@
     <div class="post-content">
       <ol>
 <li>
-<p>三个数值，了解霍夫变换返回值的意义</p>
-<p><font color=blue>如果线在原点下方通过，它将有一个正 rho 和一个小于 180 的角度。如果它在原点上方，而不是采用大于 180 的角度，该角度小于 180，并且 rho 取负值。 任何垂直线将具有 0 度，水平线将具有 90 度。</font></p>
-<table>
-<thead>
-<tr>
-<th>distance</th>
-<th>angle</th>
-<th>color</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-135.8</td>
-<td>166</td>
-<td>blue</td>
-</tr>
-<tr>
-<td>135.8</td>
-<td>166</td>
-<td>green</td>
-</tr>
-<tr>
-<td>0</td>
-<td>166</td>
-<td>red</td>
-</tr>
-</tbody>
-</table>
-<p><img src="/Giwabot/2023-01-08_10-41-46.png" alt="giwabot"></p>
+<p>prometheus 热启动：需要加上 <strong>&quot;&ndash;web.enable-lifecycle&quot;</strong> 参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl http://ip:9090/-/reload
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/Prometheus/2023-01-10_15-19-18.png" alt="error"></p>
+<p>加上**&quot;&ndash;web.enable-lifecycle&quot;**参数重新启动后成功：
+<img src="/Prometheus/2023-01-10_15-21-58.png" alt="success"></p>
+</li>
+<li>
+<p>常用的API</p>
+<ol>
+<li><strong>Health check:</strong></li>
+</ol>
+<ul>
+<li><font color=red>GET /-/healthy</font>
+<img src="/Prometheus/2023-01-10_15-31-18.png" alt="health"></li>
+</ul>
+<ol start="2">
+<li><strong>Readiness check:</strong></li>
+</ol>
+<ul>
+<li><font color=red>GET /-/ready</font>
+<img src="/Prometheus/2023-01-10_15-33-51.png" alt="readiness"></li>
+</ul>
+<p>下面的3,4两点都需要在启动的时候加上 <strong>&quot;&ndash;web.enable-lifecycle&quot;</strong> 参数</p>
+<ol start="3">
+<li><strong>Reload:</strong></li>
+</ol>
+<ul>
+<li><font color=red>PUT  /-/reload</font></li>
+<li><font color=red>POST /-/reload</font></li>
+</ul>
+<ol start="4">
+<li><strong>Quit:</strong></li>
+</ol>
+<ul>
+<li><font color=red>PUT  /-/quit</font></li>
+<li><font color=red>POST /-/quit</font></li>
+</ul>
+</li>
+<li>
+<p>数据存储说明</p>
+<ol>
+<li>新的prometheus启动时间为14:02分，启动后，数据目录如下：
+<img src="/Prometheus/2023-01-10_17-15-41.png" alt="data"></li>
+<li>3个小时后，数据目录如下(也就是3小时后，创建了chunk):
+<img src="/Prometheus/2023-01-10_17-14-30.png" alt="data-3">
+<font color=red>head block 和后面的 block 都被设定为保存 2h 数据，当 head block 超过 1.5 倍大小（3h）的时候，它将被重新划分成 2h 和 1h 两部分，前面一部分将会变成只读块并被保存到硬盘中。</font></li>
+<li>修改系统时间: <code>date -s &quot;2023-01-10 18:00:00&quot;</code>,两分钟后，发现无变化</li>
+<li>修改系统时间: <code>date -s &quot;2023-01-10 19:01:00&quot;</code>,发现有变化，多了一个chunk
+<img src="/Prometheus/2023-01-10_17-31-31.png" alt="chunk">
+<font color=red>经过后续测试发现，差不多每2个小时生成一个chunk. </font></li>
+</ol>
 </li>
 <li></li>
 </ol>
@@ -192,7 +221,7 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2023-01-08
+        2023-01-10
         
     </span>
   </p>
@@ -202,13 +231,13 @@
 <footer class="post-footer">
       
       <nav class="post-nav">
-        <a class="prev" href="/post/prometheus/prometheus/">
+        <a class="prev" href="/post/blog/blog/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Prometheus</span>
+            <span class="prev-text nav-default">Blog使用步骤记录</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/giwabot/giwabot/">
-            <span class="next-text nav-default">Giwabot</span>
+        <a class="next" href="/post/giwabot/hough/">
+            <span class="next-text nav-default">Hough</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
