@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Blog使用步骤记录">
 <meta itemprop="description" content="前置条件：当前所在的目录为：/drives/d/05.hugo/k8sdoc 创建md文档 1 ../hugo_extended_0.104.0/hugo.exe new post/blog/blog.md 本地查看效果 1 ../hugo_extended_0.104.0/hugo.exe server -t even --buildDrafts 本地编译，生成的文件"><meta itemprop="datePublished" content="2023-05-29T14:15:21+08:00" />
 <meta itemprop="dateModified" content="2023-05-29T14:15:21+08:00" />
-<meta itemprop="wordCount" content="165">
+<meta itemprop="wordCount" content="169">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Blog使用步骤记录"/>
 <meta name="twitter:description" content="前置条件：当前所在的目录为：/drives/d/05.hugo/k8sdoc 创建md文档 1 ../hugo_extended_0.104.0/hugo.exe new post/blog/blog.md 本地查看效果 1 ../hugo_extended_0.104.0/hugo.exe server -t even --buildDrafts 本地编译，生成的文件"/>
@@ -134,7 +134,7 @@
       <div class="post-meta">
         <span class="post-time"> 2023-05-29 </span>
         
-          <span class="more-meta"> 约 165 字 </span>
+          <span class="more-meta"> 约 169 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -209,13 +209,21 @@
 </ol>
 <hr>
 <h2 id="总结命令">总结命令：</h2>
-<ul>
-<li>../hugo_extended_0.104.0/hugo.exe new post/blog/blog.md</li>
-<li>../hugo_extended_0.104.0/hugo.exe server -t even  &ndash;buildDrafts</li>
-<li>../hugo_extended_0.104.0/hugo.exe &ndash;theme=even &ndash;baseUrl=&ldquo;<a href="https://yy-up.github.io">https://yy-up.github.io</a>&rdquo; &ndash;buildDrafts</li>
-<li>rm -rf ../yy-up.github.io/!(.git*) &amp;&amp; cp -r public/* ../yy-up.github.io/ &amp;&amp; cd ../yy-up.github.io/</li>
-</ul>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">../hugo_extended_0.104.0/hugo.exe new post/blog/blog.md
+</span></span><span class="line"><span class="cl">../hugo_extended_0.104.0/hugo.exe server -t even  --buildDrafts
+</span></span><span class="line"><span class="cl">../hugo_extended_0.104.0/hugo.exe --theme<span class="o">=</span>even --baseUrl<span class="o">=</span><span class="s2">&#34;https://yy-up.github.io&#34;</span> --buildDrafts
+</span></span><span class="line"><span class="cl">rm -rf ../yy-up.github.io/!<span class="o">(</span>.git*<span class="o">)</span> <span class="o">&amp;&amp;</span> cp -r public/* ../yy-up.github.io/ <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ../yy-up.github.io/
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">
