@@ -6,7 +6,25 @@
     <description>Recent content in Posts on YY的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 29 May 2023 14:15:21 +0800</lastBuildDate><atom:link href="https://yy-up.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 06 Oct 2023 18:01:05 +0800</lastBuildDate><atom:link href="https://yy-up.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Doc</title>
+      <link>https://yy-up.github.io/post/giwabot/doc/</link>
+      <pubDate>Fri, 06 Oct 2023 18:01:05 +0800</pubDate>
+      
+      <guid>https://yy-up.github.io/post/giwabot/doc/</guid>
+      <description>文档记录环境安装过程中的注意点 安装系统 这里使用windows环境进行安装： 安装rpiboot_setup.exe rpibot 将CM4模块固定到底板上，</description>
+    </item>
+    
+    <item>
+      <title>Install</title>
+      <link>https://yy-up.github.io/post/anaconda/install/</link>
+      <pubDate>Sun, 01 Oct 2023 09:08:22 +0800</pubDate>
+      
+      <guid>https://yy-up.github.io/post/anaconda/install/</guid>
+      <description>anaconda官网 Free Download (只看到最新的版本) 历史版本：https://repo.anaconda.com/archive/ 下，这里下载：An</description>
+    </item>
+    
     <item>
       <title>Blog使用步骤记录</title>
       <link>https://yy-up.github.io/post/blog/blog/</link>
