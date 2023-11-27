@@ -6,7 +6,16 @@
     <description>Recent content in Posts on YY的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 06 Oct 2023 18:01:05 +0800</lastBuildDate><atom:link href="https://yy-up.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 27 Nov 2023 21:44:43 +0800</lastBuildDate><atom:link href="https://yy-up.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Synclog</title>
+      <link>https://yy-up.github.io/post/giwabot/synclog/</link>
+      <pubDate>Mon, 27 Nov 2023 21:44:43 +0800</pubDate>
+      
+      <guid>https://yy-up.github.io/post/giwabot/synclog/</guid>
+      <description>本文主要描述如何自动挂载U盘到OS的/mnt/upan目录，并将.log文件sync到U盘的根目录下，此时可以到U盘的根目录下寻找.log结</description>
+    </item>
+    
     <item>
       <title>Doc</title>
       <link>https://yy-up.github.io/post/giwabot/doc/</link>

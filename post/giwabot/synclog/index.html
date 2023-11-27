@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Synclog - YY的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="YY" /><meta name="description" content="本文主要描述如何自动挂载U盘到OS的/mnt/upan目录，并将.log文件sync到U盘的根目录下，此时可以到U盘的根目录下寻找.log结" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.104.0 with theme even" />
+
+
+<link rel="canonical" href="https://yy-up.github.io/post/giwabot/synclog/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.95f7173810031e0e249619c8dd8f86bf8b0b9f93842616c81eeb8262e80579ad.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Synclog" />
+<meta property="og:description" content="本文主要描述如何自动挂载U盘到OS的/mnt/upan目录，并将.log文件sync到U盘的根目录下，此时可以到U盘的根目录下寻找.log结" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yy-up.github.io/post/giwabot/synclog/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-11-27T21:44:43+08:00" />
+<meta property="article:modified_time" content="2023-11-27T21:44:43+08:00" />
+
+<meta itemprop="name" content="Synclog">
+<meta itemprop="description" content="本文主要描述如何自动挂载U盘到OS的/mnt/upan目录，并将.log文件sync到U盘的根目录下，此时可以到U盘的根目录下寻找.log结"><meta itemprop="datePublished" content="2023-11-27T21:44:43+08:00" />
+<meta itemprop="dateModified" content="2023-11-27T21:44:43+08:00" />
+<meta itemprop="wordCount" content="548">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Synclog"/>
+<meta name="twitter:description" content="本文主要描述如何自动挂载U盘到OS的/mnt/upan目录，并将.log文件sync到U盘的根目录下，此时可以到U盘的根目录下寻找.log结"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">YY的个人博客</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">YY的个人博客</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Synclog</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-11-27 </span>
+        
+          <span class="more-meta"> 约 548 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#本文主要描述如何自动挂载u盘到os的mntupan目录并将log文件sync到u盘的根目录下此时可以到u盘的根目录下寻找log结尾的日志">本文主要描述如何自动挂载U盘到OS的/mnt/upan目录，并将<code>.log</code>文件sync到U盘的根目录下，此时可以到U盘的根目录下寻找<code>.log</code>结尾的日志</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <hr>
+<h2 id="本文主要描述如何自动挂载u盘到os的mntupan目录并将log文件sync到u盘的根目录下此时可以到u盘的根目录下寻找log结尾的日志">本文主要描述如何自动挂载U盘到OS的/mnt/upan目录，并将<code>.log</code>文件sync到U盘的根目录下，此时可以到U盘的根目录下寻找<code>.log</code>结尾的日志</h2>
+<ul>
+<li>实施步骤
+<ul>
+<li>确保系统中有giwabot用户，并且确保giwabot用户有sudo权限</li>
+<li>源码中直接执行<code>bash synclog-setup.sh</code>,此时插上U盘会将目录下以<code>.log</code>结尾的日志copy到U盘</li>
+<li><code>synclog-setup.sh</code>内容如下：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">giwabot@raspberrypi:~/Documents/solar-cleanbot-vision $ cat synclog-setup.sh
+</span></span><span class="line"><span class="cl"><span class="c1">#!/bin/bash</span>
+</span></span><span class="line"><span class="cl"><span class="nv">cur</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;</span><span class="k">$(</span>basename <span class="nv">$cur</span><span class="k">)</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="s2">&#34;solar-cleanbot-vision&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;must run this script in giwabot project folder: solar-cleanbot-vision&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">exit</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -f /usr/lib/systemd/system/synclog.service <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    sudo systemctl stop synclog
+</span></span><span class="line"><span class="cl">    <span class="c1">#delete synclog.service</span>
+</span></span><span class="line"><span class="cl">    rm -f /usr/lib/systemd/system/synclog.service
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">cat &gt; /usr/lib/systemd/system/synclog.service <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">[Unit]
+</span></span></span><span class="line"><span class="cl"><span class="s">Description=synclog
+</span></span></span><span class="line"><span class="cl"><span class="s">#After=network-online.target
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[Service]
+</span></span></span><span class="line"><span class="cl"><span class="s">Type=forking
+</span></span></span><span class="line"><span class="cl"><span class="s">User=giwabot
+</span></span></span><span class="line"><span class="cl"><span class="s">Group=giwabot
+</span></span></span><span class="line"><span class="cl"><span class="s">ExecStart=${cur}/synclog.sh ${cur}
+</span></span></span><span class="line"><span class="cl"><span class="s">StartLimitInterval=0s
+</span></span></span><span class="line"><span class="cl"><span class="s">Restart=always
+</span></span></span><span class="line"><span class="cl"><span class="s">RestartSec=1
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[Install]
+</span></span></span><span class="line"><span class="cl"><span class="s">WantedBy=multi-user.target
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> synclog
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat &gt; <span class="si">${</span><span class="nv">cur</span><span class="si">}</span>/synclog.sh <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="s">logdir=\$1
+</span></span></span><span class="line"><span class="cl"><span class="s">result=\`sudo fdisk -l |grep &#39;FAT&#39; | cut -d &#39; &#39; -f1\`
+</span></span></span><span class="line"><span class="cl"><span class="s">if [ &#34;\$result&#34; ==  &#34;&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="s">sleep 1
+</span></span></span><span class="line"><span class="cl"><span class="s">exit -1
+</span></span></span><span class="line"><span class="cl"><span class="s">fi
+</span></span></span><span class="line"><span class="cl"><span class="s">if [ ! -d &#34;/mnt/upan&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="s">sudo mkdir -p /mnt/upan
+</span></span></span><span class="line"><span class="cl"><span class="s">else
+</span></span></span><span class="line"><span class="cl"><span class="s">sudo umount -l /mnt/upan &gt; /dev/null
+</span></span></span><span class="line"><span class="cl"><span class="s">sudo rm -rf /mnt/upan
+</span></span></span><span class="line"><span class="cl"><span class="s">exit -1
+</span></span></span><span class="line"><span class="cl"><span class="s">fi
+</span></span></span><span class="line"><span class="cl"><span class="s">sudo mount \$result /mnt/upan
+</span></span></span><span class="line"><span class="cl"><span class="s">sudo rsync -av \$logdir/*.log /mnt/upan/ &gt;/dev/null
+</span></span></span><span class="line"><span class="cl"><span class="s">echo &#34;sync log done&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">sudo umount -l /mnt/upan &gt; /dev/null
+</span></span></span><span class="line"><span class="cl"><span class="s">sudo rm -rf /mnt/upan
+</span></span></span><span class="line"><span class="cl"><span class="s">while true
+</span></span></span><span class="line"><span class="cl"><span class="s">do
+</span></span></span><span class="line"><span class="cl"><span class="s">    result=\`sudo fdisk -l |grep &#39;FAT&#39; | cut -d &#39; &#39; -f1\`
+</span></span></span><span class="line"><span class="cl"><span class="s">    if [ &#34;\$result&#34; ==  &#34;&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="s">        exit 0
+</span></span></span><span class="line"><span class="cl"><span class="s">    fi
+</span></span></span><span class="line"><span class="cl"><span class="s">    sleep 1
+</span></span></span><span class="line"><span class="cl"><span class="s">done
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chmod a+x <span class="si">${</span><span class="nv">cur</span><span class="si">}</span>/synclog.sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo systemctl start synclog
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+<li>原理
+<ul>
+<li>执行完<code>bash synclog-setup.sh</code>后，会生成<code>synclog</code>的systemd服务
+<ul>
+<li>失败时，会重启，起到没有U盘插入时，每隔1s重启一次的效果</li>
+<li>当有U盘插入时，会将日志同步到U盘，并等待U盘拔出，然后再次进入重启过程</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">YY</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-11-27
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/giwabot/doc/">
+            <span class="next-text nav-default">Doc</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="yy-up/yy-up.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="njitdkj082yy@sina.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://yy-up.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2022 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>YY</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
